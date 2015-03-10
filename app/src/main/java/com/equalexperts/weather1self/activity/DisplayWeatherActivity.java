@@ -3,13 +3,14 @@ package com.equalexperts.weather1self.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.equalexperts.weather1self.R;
 import com.equalexperts.weather1self.model.Event;
 import com.equalexperts.weather1self.response.Stream;
 import com.equalexperts.weather1self.response.WeatherDatum;
@@ -17,11 +18,12 @@ import com.equalexperts.weather1self.response.WeatherResponse;
 import com.equalexperts.weather1self.service.Lib1SelfClient;
 import com.equalexperts.weather1self.service.OpenWeatherMapClient;
 import com.equalexperts.weather1self.service.ServiceGenerator;
-import com.equalexperts.weather1self.R;
+
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -84,12 +86,12 @@ public class DisplayWeatherActivity extends ActionBarActivity {
     }
 
     private static String getCommaSeparatedListString(List<String> list) {
-        StringBuilder commaSeperatedListString = new StringBuilder();
+        StringBuilder commaSeparatedListString = new StringBuilder();
 
         for(String string : list) {
-            commaSeperatedListString.append(string).append(",");
+            commaSeparatedListString.append(string).append(",");
         }
-        return commaSeperatedListString.substring(0, commaSeperatedListString.length() - 1);
+        return commaSeparatedListString.substring(0, commaSeparatedListString.length() - 1);
     }
 
     private class MainTask extends AsyncTask<Void, Void, Void> {

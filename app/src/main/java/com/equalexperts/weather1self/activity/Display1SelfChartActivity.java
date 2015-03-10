@@ -1,23 +1,16 @@
 package com.equalexperts.weather1self.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.webkit.WebView;
 
 import com.equalexperts.weather1self.R;
-import com.equalexperts.weather1self.activity.DisplayWeatherActivity;
 import com.equalexperts.weather1self.service.Lib1SelfClient;
-import com.equalexperts.weather1self.service.ServiceGenerator;
-
-import java.util.Collections;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -42,7 +35,7 @@ public class Display1SelfChartActivity extends ActionBarActivity {
         String property = intent.getStringExtra(DisplayWeatherActivity.PROPERTY);
         final String chartUrl = Lib1SelfClient.API_URL + "/streams/" + streamId + "/events/" + objectTags + "/"
                 + actionTags + "/" + aggregation + "(" + property + ")/"
-                + "daily/barchart?readToken=" + readToken + "&bgcolor=84c341";
+                + "daily/barchart?readToken=" + readToken;
         Log.d("renderChart", "1Self chart URL : " + chartUrl);
 
         /* FIXME: Not working due to some bug with WebView, hence, delegating to browser activity */
