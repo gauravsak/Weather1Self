@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.equalexperts.weather1self" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".activity.EnterCityDetailsActivity"
+            android:label="@string/title_activity_enter_city_details" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.DisplayWeatherActivity"
+            android:label="@string/title_activity_display_weather"
+            android:parentActivityName=".activity.EnterCityDetailsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.equalexperts.weather1self.activity.EnterCityDetailsActivity" />
+        </activity>
+        <activity
+            android:name=".activity.Display1SelfChartActivity"
+            android:label="@string/title_activity_display1_self_chart" >
+        </activity>
+    </application>
+
+</manifest>
