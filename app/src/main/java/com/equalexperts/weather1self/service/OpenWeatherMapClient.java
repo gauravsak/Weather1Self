@@ -1,6 +1,6 @@
 package com.equalexperts.weather1self.service;
 
-import com.equalexperts.weather1self.response.WeatherResponse;
+import com.equalexperts.weather1self.response.owm.WeatherResponse;
 
 import retrofit.Callback;
 import retrofit.http.GET;

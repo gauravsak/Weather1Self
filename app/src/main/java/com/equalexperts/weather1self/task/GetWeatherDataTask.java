@@ -2,11 +2,14 @@ package com.equalexperts.weather1self.task;
 
 import android.os.AsyncTask;
 import android.util.Log;
+
 import com.equalexperts.weather1self.activity.DisplayWeatherActivity;
-import com.equalexperts.weather1self.response.Stream;
-import com.equalexperts.weather1self.response.WeatherResponse;
+import com.equalexperts.weather1self.response.lib1Self.Stream;
+import com.equalexperts.weather1self.response.owm.WeatherResponse;
 import com.equalexperts.weather1self.service.OpenWeatherMapClient;
+
 import org.joda.time.DateTime;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -21,7 +24,7 @@ public class GetWeatherDataTask extends AsyncTask<Object, Void, WeatherResponse>
     String country;
 
     public GetWeatherDataTask(Stream streamFor1Self, DateTime instant, String city, String country) {
-        this.weatherClient = DisplayWeatherActivity.getWeatherClient();
+        this.weatherClient = DisplayWeatherActivity.getOWMWeatherClient();
         this.streamFor1Self = streamFor1Self;
         this.instant = instant;
         this.city = city;

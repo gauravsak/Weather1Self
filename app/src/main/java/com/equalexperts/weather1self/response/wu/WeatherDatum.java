@@ -1,10 +1,6 @@
-package com.equalexperts.weather1self.response;
+package com.equalexperts.weather1self.response.wu;
 
 import com.equalexperts.weather1self.model.Event;
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -16,25 +12,19 @@ public class WeatherDatum {
     public static final List<String> OBJECT_TAGS = Arrays.asList("weather", "city");
     public static final List<String> ACTION_TAGS = Arrays.asList("record");
     public static final Map<String, Object> PROPERTIES;
-    private WeatherSummary main;
-    private long dt;
+    private String tempm;
+    private DateTime date;
 
     static {
         PROPERTIES = new HashMap<>();
     }
 
-    private static DateTimeFormatter isoFormat;
-
-    WeatherDatum() {
-        isoFormat = ISODateTimeFormat.dateTime();
-    }
-
     public BigDecimal getTemperature() {
-        return main.getTemperature();
+        return new BigDecimal(tempm);
     }
 
     public String getISOTimestamp() {
-        return isoFormat.print(new DateTime(dt * 1000));
+        return date.toISOString();
     }
 
     public Event to1SelfEvent() {

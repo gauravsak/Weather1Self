@@ -1,4 +1,4 @@
-package com.equalexperts.weather1self.response;
+package com.equalexperts.weather1self.response.owm;
 
 import java.math.BigDecimal;
 

@@ -12,14 +12,17 @@ import android.widget.TextView;
 
 import com.equalexperts.weather1self.R;
 import com.equalexperts.weather1self.model.Event;
-import com.equalexperts.weather1self.response.Stream;
-import com.equalexperts.weather1self.response.WeatherDatum;
-import com.equalexperts.weather1self.response.WeatherResponse;
+import com.equalexperts.weather1self.model.WeatherSource;
+import com.equalexperts.weather1self.response.lib1Self.Stream;
+import com.equalexperts.weather1self.response.owm.WeatherDatum;
+import com.equalexperts.weather1self.response.owm.WeatherResponse;
 import com.equalexperts.weather1self.service.Lib1SelfClient;
 import com.equalexperts.weather1self.service.OpenWeatherMapClient;
 import com.equalexperts.weather1self.service.ServiceGenerator;
+import com.equalexperts.weather1self.service.WeatherUndergroundClient;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeFieldType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,10 +43,12 @@ public class DisplayWeatherActivity extends ActionBarActivity {
     public static final String PROPERTY = "com.equalexperts.weather1Self.PROPERTY";
 
     private Lib1SelfClient lib1SelfClient;
-    private OpenWeatherMapClient weatherClient;
+    private OpenWeatherMapClient OWMWeatherClient;
+    private WeatherUndergroundClient WUWeatherClient;
     private Stream streamFor1Self;
     private String city;
     private String country;
+    private WeatherSource weatherSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,7 @@ public class DisplayWeatherActivity extends ActionBarActivity {
         country = intent.getStringExtra(EnterCityDetailsActivity.COUNTRY);
         String[] streamDetails = intent.getStringArrayExtra(EnterCityDetailsActivity.STREAM_DETAILS);
         streamFor1Self = new Stream(streamDetails[0], streamDetails[1], streamDetails[2]);
+        weatherSource = (WeatherSource) intent.getSerializableExtra(EnterCityDetailsActivity.WEATHER_SOURCE);
 
         new MainTask().execute();
     }
@@ -103,10 +109,23 @@ public class DisplayWeatherActivity extends ActionBarActivity {
 
             lib1SelfClient = get1SelfClient();
             Log.d("maintask", "created 1Self client");
-            weatherClient = getWeatherClient();
-            Log.d("maintask", "created weather client");
 
-            getWeatherDataForLast8Days();
+            switch (weatherSource) {
+                case OWM:
+                    OWMWeatherClient = getOWMWeatherClient();
+                    Log.d("maintask", "created OWM weather client");
+                    getWeatherDataForLast8DaysFromOWM();
+                    break;
+                case WU:
+                    WUWeatherClient = getWUWeatherClient();
+                    Log.d("maintask", "created WU weather client");
+                    getWeatherDataForLast8DaysFromWU();
+                    break;
+                default:
+                    OWMWeatherClient = getOWMWeatherClient();
+                    Log.d("maintask", "created OWM weather client");
+                    getWeatherDataForLast8DaysFromOWM();
+            }
             return null;
         }
 
@@ -130,7 +149,7 @@ public class DisplayWeatherActivity extends ActionBarActivity {
         }
     }
 
-    private void getWeatherDataForLast8Days() {
+    private void getWeatherDataForLast8DaysFromOWM() {
         DateTime today = new DateTime();
         DateTime eightDaysBeforeToday = today.minusDays(8);
 
@@ -138,18 +157,30 @@ public class DisplayWeatherActivity extends ActionBarActivity {
         int numberOfDays = 2;
         DateTime start = eightDaysBeforeToday;
         while(start.isBefore(today)) {
-            WeatherResponse weatherResponse = weatherClient.weatherFor(cityAndCountryParam, getEpoch(start),
+            WeatherResponse weatherResponse = OWMWeatherClient.weatherFor(cityAndCountryParam, getEpoch(start),
                     getEpoch(start = start.plusDays(numberOfDays)), "hour");
-            sendWeatherEventsTo1Self(weatherResponse);
+            List<Event> events = create1SelfEvents(weatherResponse);
+            sendWeatherEventsTo1Self(events);
         }
     }
 
-    private void sendWeatherEventsTo1Self(WeatherResponse weatherResponse) {
-        List<Event> events = new ArrayList<>();
-        for (final WeatherDatum weatherDatum : weatherResponse.getWeatherData()) {
-            events.add(weatherDatum.to1SelfEvent());
-        }
+    private void getWeatherDataForLast8DaysFromWU() {
+        DateTime today = new DateTime();
+        DateTime eightDaysBeforeToday = today.minusDays(8);
 
+        DateTime instant = eightDaysBeforeToday;
+        String dateParam;
+        while(instant.isBefore(today)) {
+            instant = instant.plusDays(1);
+            dateParam = "" + instant.get(DateTimeFieldType.year()) + instant.get(DateTimeFieldType.monthOfYear()) + instant.get(DateTimeFieldType.dayOfMonth());
+            com.equalexperts.weather1self.response.wu.WeatherResponse weatherResponse
+                    = WUWeatherClient.weatherFor(city, country, dateParam);
+            List<Event> events = create1SelfEvents(weatherResponse);
+            sendWeatherEventsTo1Self(events);
+        }
+    }
+
+    private void sendWeatherEventsTo1Self(List<Event> events) {
         int averageBatchSize = 40;
         int totalNumberOfEvents = events.size();
         int lastBatchSize = totalNumberOfEvents % averageBatchSize;
@@ -158,6 +189,24 @@ public class DisplayWeatherActivity extends ActionBarActivity {
                     ? averageBatchSize : lastBatchSize;
             sendEventBatch(events.subList(i, i + currentBatchSize));
         }
+    }
+
+    private List<Event> create1SelfEvents(WeatherResponse weatherResponse) {
+        List<Event> events = new ArrayList<>();
+        for (final WeatherDatum weatherDatum : weatherResponse.getWeatherData()) {
+            events.add(weatherDatum.to1SelfEvent());
+        }
+        return events;
+    }
+
+    private List<Event> create1SelfEvents(
+            com.equalexperts.weather1self.response.wu.WeatherResponse weatherResponse) {
+        List<Event> events = new ArrayList<>();
+        for (final com.equalexperts.weather1self.response.wu.WeatherDatum weatherDatum
+                : weatherResponse.getWeatherData()) {
+            events.add(weatherDatum.to1SelfEvent());
+        }
+        return events;
     }
 
     private void sendEventBatch(List<Event> eventBatch) {
@@ -177,13 +226,18 @@ public class DisplayWeatherActivity extends ActionBarActivity {
         return totalNumberOfEvents - i == lastBatchSize;
     }
 
-    public static OpenWeatherMapClient getWeatherClient() {
+    public static Lib1SelfClient get1SelfClient() {
+        return ServiceGenerator.createService(Lib1SelfClient.class,
+                Lib1SelfClient.API_URL);
+    }
+
+    public static OpenWeatherMapClient getOWMWeatherClient() {
         return ServiceGenerator.createService(OpenWeatherMapClient.class,
                 OpenWeatherMapClient.API_URL);
     }
 
-    public static Lib1SelfClient get1SelfClient() {
-        return ServiceGenerator.createService(Lib1SelfClient.class,
-                Lib1SelfClient.API_URL);
+    public static WeatherUndergroundClient getWUWeatherClient() {
+        return ServiceGenerator.createService(WeatherUndergroundClient.class,
+                WeatherUndergroundClient.API_URL);
     }
 }

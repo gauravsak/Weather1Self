@@ -4,9 +4,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.equalexperts.weather1self.activity.DisplayWeatherActivity;
-import com.equalexperts.weather1self.response.Stream;
-import com.equalexperts.weather1self.response.WeatherDatum;
-import com.equalexperts.weather1self.response.WeatherResponse;
+import com.equalexperts.weather1self.response.lib1Self.Stream;
+import com.equalexperts.weather1self.response.owm.WeatherDatum;
+import com.equalexperts.weather1self.response.owm.WeatherResponse;
 import com.equalexperts.weather1self.service.Lib1SelfClient;
 
 import retrofit.Callback;

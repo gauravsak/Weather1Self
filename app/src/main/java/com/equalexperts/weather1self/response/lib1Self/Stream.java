@@ -1,4 +1,4 @@
-package com.equalexperts.weather1self.response;
+package com.equalexperts.weather1self.response.lib1Self;
 
 public class Stream {
     private String streamid;
