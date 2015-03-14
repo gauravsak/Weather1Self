@@ -1,18 +1,16 @@
 package com.equalexperts.weather1self.service;
 
 import com.equalexperts.weather1self.model.Event;
-import com.equalexperts.weather1self.response.Stream;
+import com.equalexperts.weather1self.response.lib1Self.Stream;
 
 import java.util.List;
 
 import retrofit.Callback;
 import retrofit.http.Body;
-import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.Headers;
 import retrofit.http.POST;
 import retrofit.http.Path;
-import retrofit.http.Query;
 
 public interface Lib1SelfClient {
 

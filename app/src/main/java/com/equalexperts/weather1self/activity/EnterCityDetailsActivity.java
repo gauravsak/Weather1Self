@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 import com.equalexperts.weather1self.R;
 import com.equalexperts.weather1self.model.WeatherSource;
-import com.equalexperts.weather1self.response.Stream;
+import com.equalexperts.weather1self.response.lib1Self.Stream;
 import com.equalexperts.weather1self.service.Lib1SelfClient;
 import com.equalexperts.weather1self.service.ServiceGenerator;
 
