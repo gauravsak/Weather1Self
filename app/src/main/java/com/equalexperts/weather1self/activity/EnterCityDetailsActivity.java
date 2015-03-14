@@ -2,8 +2,8 @@ package com.equalexperts.weather1self.activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,10 +12,10 @@ import android.widget.EditText;
 import com.equalexperts.weather1self.R;
 import com.equalexperts.weather1self.response.Stream;
 import com.equalexperts.weather1self.service.Lib1SelfClient;
-import com.equalexperts.weather1self.service.OpenWeatherMapClient;
 import com.equalexperts.weather1self.service.ServiceGenerator;
 
-import java.util.Arrays;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 
 public class EnterCityDetailsActivity extends ActionBarActivity {
@@ -27,10 +27,18 @@ public class EnterCityDetailsActivity extends ActionBarActivity {
     private Lib1SelfClient lib1SelfClient;
     private Stream streamFor1Self;
 
+    @InjectView(R.id.city)
+    EditText city;
+
+    @InjectView(R.id.country)
+    EditText country;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_city_details);
+        ButterKnife.inject(this);
+
         lib1SelfClient = get1SelfClient();
         new Get1SelfStreamTask().execute();
     }
@@ -60,9 +68,7 @@ public class EnterCityDetailsActivity extends ActionBarActivity {
 
     public void sendDetails(View view) {
         Intent intent = new Intent(this, DisplayWeatherActivity.class);
-        EditText city = (EditText) findViewById(R.id.city);
         intent.putExtra(CITY, city.getText().toString());
-        EditText country = (EditText) findViewById(R.id.country);
         intent.putExtra(COUNTRY, country.getText().toString());
         intent.putExtra(STREAM_DETAILS, new String[]{streamFor1Self.getId(),
                 streamFor1Self.getReadToken(), streamFor1Self.getWriteToken()});
