@@ -9,12 +9,14 @@
         android:id="@+id/city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_city_name"/>
+        android:hint="@string/enter_city_name"
+        android:text="@string/default_city"/>
 
     <EditText
         android:id="@+id/country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/default_country"
         android:hint="@string/enter_country_name"/>
 
     <Button
