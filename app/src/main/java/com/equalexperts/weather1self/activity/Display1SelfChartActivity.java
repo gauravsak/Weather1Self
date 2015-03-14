@@ -7,18 +7,16 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
 
 import com.equalexperts.weather1self.R;
 import com.equalexperts.weather1self.service.Lib1SelfClient;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class Display1SelfChartActivity extends ActionBarActivity {
 
-    @InjectView(R.id.chartWebView)
-    WebView chartWebView;
+//    @InjectView(R.id.chartWebView)
+//    WebView chartWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
