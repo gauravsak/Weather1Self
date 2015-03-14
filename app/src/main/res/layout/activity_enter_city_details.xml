@@ -1,36 +1,42 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     tools:context=".EnterMessageActivity">
 
-    <EditText
-        android:id="@+id/city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/enter_city_name"
-        android:text="@string/default_city"/>
+        <EditText
+            android:id="@+id/city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_city_name"
+            android:text="@string/default_city"/>
 
-    <EditText
-        android:id="@+id/country"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/default_country"
-        android:hint="@string/enter_country_name"/>
+        <EditText
+            android:id="@+id/country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/city"
+            android:layout_toRightOf="@+id/city"
+            android:text="@string/default_country"
+            android:hint="@string/enter_country_name"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/send_to_OWM_btn"
-        android:text="@string/send_to_OWM"
-        android:onClick="sendDetailsToOWM"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/city"
+            android:id="@+id/send_to_OWM_btn"
+            android:text="@string/send_to_OWM"
+            android:onClick="sendDetailsToOWM"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/send_to_WU_btn"
-        android:text="@string/send_to_WU"
-        android:onClick="sendDetailsToWU"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/city"
+            android:layout_toEndOf="@+id/send_to_OWM_btn"
+            android:layout_toRightOf="@+id/send_to_OWM_btn"
+            android:id="@+id/send_to_WU_btn"
+            android:text="@string/send_to_WU"
+            android:onClick="sendDetailsToWU"/>
 
-</LinearLayout>
+</RelativeLayout>

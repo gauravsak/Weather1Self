@@ -4,9 +4,9 @@ import java.util.List;
 
 public class WeatherResponse {
 
-    private List<WeatherDatum> observations;
+    private WeatherHistory history;
 
     public List<WeatherDatum> getWeatherData() {
-        return observations;
+        return history.getObservations();
     }
 }
