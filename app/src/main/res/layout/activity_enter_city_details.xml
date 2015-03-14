@@ -22,8 +22,15 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/send_btn"
-        android:text="@string/send_button"
-        android:onClick="sendDetails"/>
+        android:id="@+id/send_to_OWM_btn"
+        android:text="@string/send_to_OWM"
+        android:onClick="sendDetailsToOWM"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/send_to_WU_btn"
+        android:text="@string/send_to_WU"
+        android:onClick="sendDetailsToWU"/>
 
 </LinearLayout>

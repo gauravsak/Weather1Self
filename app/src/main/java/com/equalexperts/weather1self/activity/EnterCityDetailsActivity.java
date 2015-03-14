@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.equalexperts.weather1self.R;
+import com.equalexperts.weather1self.model.WeatherSource;
 import com.equalexperts.weather1self.response.Stream;
 import com.equalexperts.weather1self.service.Lib1SelfClient;
 import com.equalexperts.weather1self.service.ServiceGenerator;
@@ -23,6 +24,7 @@ public class EnterCityDetailsActivity extends ActionBarActivity {
     public static final String CITY = "com.equalexperts.weather1Self.CITY";
     public static final String COUNTRY = "com.equalexperts.weather1Self.COUNTRY";
     public static final String STREAM_DETAILS = "com.equalexperts.weather1Self.STREAM_DETAILS";
+    public static final String WEATHER_SOURCE = "com.equalexperts.weather1Self.WEATHER_SOURCE";
 
     private Lib1SelfClient lib1SelfClient;
     private Stream streamFor1Self;
@@ -66,12 +68,21 @@ public class EnterCityDetailsActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void sendDetails(View view) {
+    public void sendDetailsToOWM(View view) {
+        sendDetails(WeatherSource.OWM);
+    }
+
+    public void sendDetailsToWU(View view) {
+        sendDetails(WeatherSource.WU);
+    }
+
+    private void sendDetails(WeatherSource weatherSource) {
         Intent intent = new Intent(this, DisplayWeatherActivity.class);
         intent.putExtra(CITY, city.getText().toString());
         intent.putExtra(COUNTRY, country.getText().toString());
         intent.putExtra(STREAM_DETAILS, new String[]{streamFor1Self.getId(),
                 streamFor1Self.getReadToken(), streamFor1Self.getWriteToken()});
+        intent.putExtra(WEATHER_SOURCE, weatherSource);
         startActivity(intent);
     }
 
