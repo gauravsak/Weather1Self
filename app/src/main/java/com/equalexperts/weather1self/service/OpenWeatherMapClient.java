@@ -13,8 +13,7 @@ public interface OpenWeatherMapClient {
     String API_KEY = "a19d564d7f6db6df2c4d18a3c218131d";
 
     @Headers({
-            "x-api-key: " + API_KEY,
-            "Accept-Encoding: gzip"
+            "x-api-key: " + API_KEY
     })
     @GET("/history/city")
     void weatherFor(
@@ -25,8 +24,7 @@ public interface OpenWeatherMapClient {
     );
 
     @Headers({
-            "x-api-key: " + API_KEY,
-            "Accept-Encoding: gzip"
+            "x-api-key: " + API_KEY
     })
     @GET("/history/city")
     void weatherFor(
@@ -35,8 +33,7 @@ public interface OpenWeatherMapClient {
     );
 
     @Headers({
-            "x-api-key: " + API_KEY,
-            "Accept-Encoding: gzip"
+            "x-api-key: " + API_KEY
     })
     @GET("/history/city")
     WeatherResponse weatherFor(
@@ -46,8 +43,7 @@ public interface OpenWeatherMapClient {
     );
 
     @Headers({
-            "x-api-key: " + API_KEY,
-            "Accept-Encoding: gzip"
+            "x-api-key: " + API_KEY
     })
     @GET("/history/city")
     WeatherResponse weatherFor(
@@ -55,8 +51,7 @@ public interface OpenWeatherMapClient {
     );
 
     @Headers({
-            "x-api-key: " + API_KEY,
-            "Accept-Encoding: gzip"
+            "x-api-key: " + API_KEY
     })
     @GET("/history/city")
     WeatherResponse weatherFor(
