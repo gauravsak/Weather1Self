@@ -4,12 +4,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.equalexperts.weather1self.activity.DisplayWeatherActivity;
-import com.equalexperts.weather1self.response.Stream;
+import com.equalexperts.weather1self.response.lib1Self.Stream;
 import com.equalexperts.weather1self.service.Lib1SelfClient;
 
 import org.joda.time.DateTime;
-
-import java.util.concurrent.ExecutionException;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
