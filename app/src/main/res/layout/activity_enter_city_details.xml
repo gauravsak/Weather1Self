@@ -22,47 +22,32 @@
             android:hint="@string/enter_country_name"/>
 
         <RadioGroup
+            android:id="@+id/weather_source_radio_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/city_txt"
-            android:id="@+id/weather_source_radio_group">
+            android:layout_below="@+id/city_txt">
 
             <RadioButton
+                android:id="@+id/wunderground_com_radio_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/wunderground_com"
+                android:text="@string/wunderground_com_radio"
                 android:checked="true"/>
 
             <RadioButton
+                android:id="@+id/openweathermap_org_radio_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/openweathermap_org"/>
+                android:text="@string/openweathermap_org_radio"/>
 
             </RadioGroup>
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/weather_source_radio_group"
-            android:id="@+id/get_from_OWM_btn"
-            android:text="@string/get_from_OWM"
-            android:onClick="sendDetailsToOWM"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/weather_source_radio_group"
-            android:layout_toEndOf="@+id/get_from_OWM_btn"
-            android:layout_toRightOf="@+id/get_from_OWM_btn"
-            android:id="@+id/get_from_WU_btn"
-            android:text="@string/get_from_WU"
-            android:onClick="sendDetailsToWU"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/get_temperature_data_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/weather_source_radio_group"
             android:text="@string/get_temperature_data"
-            android:layout_below="@id/weather_source_radio_group"/>
+            android:onClick="sendDetails"/>
 
 </RelativeLayout>

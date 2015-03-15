@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import com.equalexperts.weather1self.R;
 import com.equalexperts.weather1self.model.WeatherSource;
@@ -30,10 +31,13 @@ public class EnterCityDetailsActivity extends ActionBarActivity {
     private Stream streamFor1Self;
 
     @InjectView(R.id.city_txt)
-    EditText city;
+    EditText cityTxt;
 
     @InjectView(R.id.country_txt)
-    EditText country;
+    EditText countryTxt;
+
+    @InjectView(R.id.weather_source_radio_group)
+    RadioGroup weatherSourceRadioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,22 +72,26 @@ public class EnterCityDetailsActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void sendDetailsToOWM(View view) {
-        sendDetails(WeatherSource.OWM);
-    }
-
-    public void sendDetailsToWU(View view) {
-        sendDetails(WeatherSource.WU);
-    }
-
-    private void sendDetails(WeatherSource weatherSource) {
+    public void sendDetails(View view) {
         Intent intent = new Intent(this, DisplayWeatherActivity.class);
-        intent.putExtra(CITY, city.getText().toString());
-        intent.putExtra(COUNTRY, country.getText().toString());
+        intent.putExtra(CITY, cityTxt.getText().toString());
+        intent.putExtra(COUNTRY, countryTxt.getText().toString());
         intent.putExtra(STREAM_DETAILS, new String[]{streamFor1Self.getId(),
                 streamFor1Self.getReadToken(), streamFor1Self.getWriteToken()});
-        intent.putExtra(WEATHER_SOURCE, weatherSource);
+        intent.putExtra(WEATHER_SOURCE, getWeatherSource(weatherSourceRadioGroup
+                .getCheckedRadioButtonId()));
         startActivity(intent);
+    }
+
+    private WeatherSource getWeatherSource(int checkedRadioButtonId) {
+        switch (checkedRadioButtonId) {
+            case R.id.wunderground_com_radio_btn:
+                return WeatherSource.WU;
+            case R.id.openweathermap_org_radio_btn:
+                return WeatherSource.OWM;
+            default:
+                return WeatherSource.WU;
+        }
     }
 
     private class Get1SelfStreamTask extends AsyncTask<Void, Void, Void> {
