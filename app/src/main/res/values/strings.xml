@@ -9,7 +9,7 @@
     <string name="title_activity_enter_city_details">Your City Details</string>
     <string name="enter_city_name">City</string>
     <string name="enter_country_name">Country</string>
-    <string name="title_activity_display1_self_chart">Display1SelfChartActivity</string>
+    <string name="title_activity_display_1self_chart">Display1SelfChartActivity</string>
     <string name="lets_get_you_a_nice_chart">Let\'s get you a nice chart!</string>
     <string name="default_city">Pune</string>
     <string name="default_country">IN</string>
