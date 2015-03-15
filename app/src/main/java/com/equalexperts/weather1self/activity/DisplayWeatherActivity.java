@@ -26,6 +26,7 @@ import org.joda.time.DateTimeFieldType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -215,7 +216,7 @@ public class DisplayWeatherActivity extends ActionBarActivity {
     }
 
     private String getCityAndCountryParam() {
-        return city + ", " + country.toLowerCase();
+        return city + ", " + country.toLowerCase(Locale.ENGLISH);
     }
 
     private static long getEpoch(DateTime instant) {

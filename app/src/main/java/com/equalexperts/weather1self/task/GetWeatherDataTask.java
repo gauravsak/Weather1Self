@@ -10,6 +10,8 @@ import com.equalexperts.weather1self.service.OpenWeatherMapClient;
 
 import org.joda.time.DateTime;
 
+import java.util.Locale;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -58,6 +60,6 @@ public class GetWeatherDataTask extends AsyncTask<Object, Void, WeatherResponse>
     }
 
     private static String getCityAndCountryParam(String city, String country) {
-        return city + ",%20" + country.toLowerCase();
+        return city + ",%20" + country.toLowerCase(Locale.ENGLISH);
     }
 }
