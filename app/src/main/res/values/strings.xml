@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TestApp</string>
+    <string name="app_name">Weather1Self</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="edit_message">Add Your Text</string>
     <string name="send_to_OWM">Send to OWM</string>
     <string name="title_activity_display_weather">Hurray Weather!!</string>
-    <string name="title_activity_enter_city_details">Your City</string>
-    <string name="enter_city_name">Enter City Name</string>
-    <string name="enter_country_name">Enter Country Name</string>
+    <string name="title_activity_enter_city_details">Your City Details</string>
+    <string name="enter_city_name">Glad to know your city\.\.\.</string>
+    <string name="enter_country_name">The country you\'re proud of!</string>
     <string name="title_activity_display1_self_chart">Display1SelfChartActivity</string>
     <string name="lets_get_you_a_nice_chart">Let\'s get you a nice chart!</string>
     <string name="default_city">Pune</string>
