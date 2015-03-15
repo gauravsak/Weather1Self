@@ -14,6 +14,7 @@ import com.equalexperts.weather1self.R;
 import com.equalexperts.weather1self.model.Event;
 import com.equalexperts.weather1self.model.WeatherSource;
 import com.equalexperts.weather1self.response.lib1Self.Stream;
+import com.equalexperts.weather1self.response.lib1Self.WeatherEventAttributes;
 import com.equalexperts.weather1self.response.owm.WeatherDatum;
 import com.equalexperts.weather1self.response.owm.WeatherResponse;
 import com.equalexperts.weather1self.service.Lib1SelfClient;
@@ -85,10 +86,10 @@ public class DisplayWeatherActivity extends ActionBarActivity {
         Intent intent = new Intent(this, Display1SelfChartActivity.class);
         intent.putExtra(STREAM_ID, streamFor1Self.getId());
         intent.putExtra(READ_TOKEN, streamFor1Self.getReadToken());
-        intent.putExtra(OBJECT_TAGS, getCommaSeparatedListString(WeatherDatum.OBJECT_TAGS));
-        intent.putExtra(ACTION_TAGS, getCommaSeparatedListString(WeatherDatum.ACTION_TAGS));
+        intent.putExtra(OBJECT_TAGS, getCommaSeparatedListString(WeatherEventAttributes.OBJECT_TAGS));
+        intent.putExtra(ACTION_TAGS, getCommaSeparatedListString(WeatherEventAttributes.ACTION_TAGS));
         intent.putExtra(AGGREGATION, "mean");
-        intent.putExtra(PROPERTY, (String) WeatherDatum.PROPERTIES.keySet().toArray()[0]);
+        intent.putExtra(PROPERTY, WeatherEventAttributes.PROPERTY);
         startActivity(intent);
     }
 
