@@ -4,7 +4,7 @@
     <string name="app_name">Weather1Self</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="send_to_OWM">Send to OWM</string>
+    <string name="get_from_OWM">Get from openweathermap.org</string>
     <string name="title_activity_display_weather">Hurray Weather!!</string>
     <string name="title_activity_enter_city_details">Your City Details</string>
     <string name="enter_city_name">City</string>
@@ -13,6 +13,6 @@
     <string name="lets_get_you_a_nice_chart">Let\'s get you a nice chart!</string>
     <string name="default_city">Pune</string>
     <string name="default_country">IN</string>
-    <string name="send_to_WU">Send to WU</string>
+    <string name="get_from_WU">Get from wunderground.com</string>
 
 </resources>
