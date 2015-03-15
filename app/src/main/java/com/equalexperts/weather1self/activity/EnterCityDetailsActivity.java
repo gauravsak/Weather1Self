@@ -29,10 +29,10 @@ public class EnterCityDetailsActivity extends ActionBarActivity {
     private Lib1SelfClient lib1SelfClient;
     private Stream streamFor1Self;
 
-    @InjectView(R.id.city)
+    @InjectView(R.id.city_txt)
     EditText city;
 
-    @InjectView(R.id.country)
+    @InjectView(R.id.country_txt)
     EditText country;
 
     @Override
