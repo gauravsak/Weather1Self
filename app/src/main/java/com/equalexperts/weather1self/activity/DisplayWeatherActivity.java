@@ -23,7 +23,8 @@ import com.equalexperts.weather1self.service.ServiceGenerator;
 import com.equalexperts.weather1self.service.WeatherUndergroundClient;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeFieldType;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -174,7 +175,8 @@ public class DisplayWeatherActivity extends ActionBarActivity {
         String dateParam;
         while(instant.isBefore(today)) {
             instant = instant.plusDays(1);
-            dateParam = "" + instant.get(DateTimeFieldType.year()) + instant.get(DateTimeFieldType.monthOfYear()) + instant.get(DateTimeFieldType.dayOfMonth());
+            DateTimeFormatter yyyyMMdd = DateTimeFormat.forPattern("yyyyMMdd");
+            dateParam = yyyyMMdd.print(instant);
             com.equalexperts.weather1self.response.wu.WeatherResponse weatherResponse
                     = WUWeatherClient.weatherFor(city, country, dateParam);
             List<Event> events = create1SelfEvents(weatherResponse);

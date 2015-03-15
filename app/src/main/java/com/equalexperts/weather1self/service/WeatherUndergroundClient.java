@@ -10,10 +10,10 @@ public interface WeatherUndergroundClient {
     String API_KEY = "d9be903ff6644e14";
     String API_URL = "http://api.wunderground.com/api/" + API_KEY;
 
-    @GET("/history_{YYYYMMDD}/q/{country}/{city}.json")
+    @GET("/history_{yyyyMMdd}/q/{country}/{city}.json")
     WeatherResponse weatherFor(
             @Path("city") String city,
             @Path("country") String country,
-            @Path("YYYYMMDD") String date
+            @Path("yyyyMMdd") String date
     );
 }
