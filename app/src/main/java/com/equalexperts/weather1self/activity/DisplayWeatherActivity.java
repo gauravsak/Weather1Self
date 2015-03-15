@@ -65,7 +65,7 @@ public class DisplayWeatherActivity extends ActionBarActivity {
         streamFor1Self = new Stream(streamDetails[0], streamDetails[1], streamDetails[2]);
         weatherSource = (WeatherSource) intent.getSerializableExtra(EnterCityDetailsActivity.WEATHER_SOURCE);
 
-        new MainTask().execute();
+        new FetchAndLogTemperatureEventsTask().execute();
     }
 
     @Override
@@ -103,7 +103,7 @@ public class DisplayWeatherActivity extends ActionBarActivity {
         return commaSeparatedListString.substring(0, commaSeparatedListString.length() - 1);
     }
 
-    private class MainTask extends AsyncTask<Void, Void, Void> {
+    private class FetchAndLogTemperatureEventsTask extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog progress = new ProgressDialog(DisplayWeatherActivity.this);
 
