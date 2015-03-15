@@ -8,11 +8,9 @@ public class DateTime {
     private String min;
 
     public String toISOString() {
-        int year = Integer.parseInt(this.year);
-        int month = Integer.parseInt(mon);
-        int dayOfMonth = Integer.parseInt(mday);
-        int hour = Integer.parseInt(this.hour);
-        int minute = Integer.parseInt(min);
+        String month = mon;
+        String dayOfMonth = mday;
+        String minute = min;
         return year + "-" + month + "-" + dayOfMonth + "T" + hour + ":" + minute + ":00.000Z";    // “2014-11-11T22:30:00.000Z”
     }
 }
