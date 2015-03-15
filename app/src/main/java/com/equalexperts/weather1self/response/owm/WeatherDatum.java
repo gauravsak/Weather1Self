@@ -1,27 +1,24 @@
 package com.equalexperts.weather1self.response.owm;
 
 import com.equalexperts.weather1self.model.Event;
+import com.equalexperts.weather1self.response.lib1Self.Eventful;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class WeatherDatum {
-    public static final List<String> OBJECT_TAGS = Arrays.asList("weather", "city");
-    public static final List<String> ACTION_TAGS = Arrays.asList("record");
-    public static final Map<String, Object> PROPERTIES;
+import static com.equalexperts.weather1self.response.lib1Self.WeatherEventAttributes.ACTION_TAGS;
+import static com.equalexperts.weather1self.response.lib1Self.WeatherEventAttributes.OBJECT_TAGS;
+import static com.equalexperts.weather1self.response.lib1Self.WeatherEventAttributes.PROPERTY;
+
+public class WeatherDatum implements Eventful {
+
     private WeatherSummary main;
     private long dt;
-
-    static {
-        PROPERTIES = new HashMap<>();
-    }
 
     private static DateTimeFormatter isoFormat;
 
@@ -37,9 +34,10 @@ public class WeatherDatum {
         return isoFormat.print(new DateTime(dt * 1000));
     }
 
+    @Override
     public Event to1SelfEvent() {
-        PROPERTIES.put("temperature", getTemperature());
-        return new Event(OBJECT_TAGS, ACTION_TAGS, PROPERTIES,
-                getISOTimestamp());
+        Map<String, Object> properties = new HashMap<>();
+        properties.put(PROPERTY, getTemperature());
+        return new Event(OBJECT_TAGS, ACTION_TAGS, properties, getISOTimestamp());
     }
 }
