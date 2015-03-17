@@ -5,7 +5,6 @@ import com.equalexperts.weather1self.response.lib1Self.Stream;
 
 import java.util.List;
 
-import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.Header;
 import retrofit.http.Headers;
@@ -21,21 +20,7 @@ public interface Lib1SelfClient {
 
     @Headers({"Authorization: " + APP_ID + ":" + APP_SECRET})
     @POST("/streams")
-    public void getStream(Callback<Stream> callBack);
-
-    @Headers({"Content-Type: application/json"})
-    @POST("/streams/{streamId}/events")
-    public void sendEvent(@Body Event event, @Path("streamId") String streamId,
-                          @Header("Authorization") String writeToken, Callback<Void> callback);
-
-    @Headers({"Authorization: " + APP_ID + ":" + APP_SECRET})
-    @POST("/streams")
     public Stream getStream();
-
-    @Headers({"Content-Type: application/json"})
-    @POST("/streams/{streamId}/events")
-    public Void sendEvent(@Body Event event, @Path("streamId") String streamId,
-                          @Header("Authorization") String writeToken);
 
     @Headers({"Content-Type: application/json"})
     @POST("/streams/{streamId}/events/batch")
