@@ -8,7 +8,7 @@ import retrofit.http.Path;
 public interface WeatherUndergroundClient {
 
     String API_KEY = "d9be903ff6644e14";
-    String API_URL = "http://api.wunderground.com/api/" + API_KEY;
+    String API_BASE_URL = "http://api.wunderground.com/api/" + API_KEY;
 
     @GET("/history_{yyyyMMdd}/q/{country}/{city}.json")
     WeatherResponse weatherFor(

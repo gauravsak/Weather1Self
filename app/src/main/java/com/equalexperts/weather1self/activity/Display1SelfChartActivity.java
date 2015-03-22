@@ -31,7 +31,7 @@ public class Display1SelfChartActivity extends ActionBarActivity {
         String actionTags = intent.getStringExtra(DisplayWeatherActivity.ACTION_TAGS);
         String aggregation = intent.getStringExtra(DisplayWeatherActivity.AGGREGATION);
         String property = intent.getStringExtra(DisplayWeatherActivity.PROPERTY);
-        final String chartUrl = Lib1SelfClient.API_URL + "/streams/" + streamId + "/events/" + objectTags + "/"
+        final String chartUrl = Lib1SelfClient.API_BASE_URL + "/streams/" + streamId + "/events/" + objectTags + "/"
                 + actionTags + "/" + aggregation + "(" + property + ")/"
                 + "daily/barchart?readToken=" + readToken;
         Log.d("renderChart", "1Self chart URL : " + chartUrl);

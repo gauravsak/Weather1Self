@@ -96,7 +96,6 @@ public class DisplayWeatherActivity extends ActionBarActivity {
 
     private static String getCommaSeparatedListString(List<String> list) {
         StringBuilder commaSeparatedListString = new StringBuilder();
-
         for(String string : list) {
             commaSeparatedListString.append(string).append(",");
         }
@@ -173,14 +172,14 @@ public class DisplayWeatherActivity extends ActionBarActivity {
 
         DateTime instant = eightDaysBeforeToday;
         String dateParam;
+        DateTimeFormatter yyyyMMddFormat = DateTimeFormat.forPattern("yyyyMMdd");
         while(instant.isBefore(today)) {
-            instant = instant.plusDays(1);
-            DateTimeFormatter yyyyMMdd = DateTimeFormat.forPattern("yyyyMMdd");
-            dateParam = yyyyMMdd.print(instant);
+            dateParam = yyyyMMddFormat.print(instant);
             com.equalexperts.weather1self.response.wu.WeatherResponse weatherResponse
                     = WUWeatherClient.weatherFor(city, country, dateParam);
             List<Event> events = create1SelfEvents(weatherResponse);
             sendWeatherEventsTo1Self(events);
+            instant = instant.plusDays(1);
         }
     }
 
@@ -232,16 +231,16 @@ public class DisplayWeatherActivity extends ActionBarActivity {
 
     public static Lib1SelfClient get1SelfClient() {
         return ServiceGenerator.createService(Lib1SelfClient.class,
-                Lib1SelfClient.API_URL);
+                Lib1SelfClient.API_BASE_URL);
     }
 
     public static OpenWeatherMapClient getOWMWeatherClient() {
         return ServiceGenerator.createService(OpenWeatherMapClient.class,
-                OpenWeatherMapClient.API_URL);
+                OpenWeatherMapClient.API_BASE_URL);
     }
 
     public static WeatherUndergroundClient getWUWeatherClient() {
         return ServiceGenerator.createService(WeatherUndergroundClient.class,
-                WeatherUndergroundClient.API_URL);
+                WeatherUndergroundClient.API_BASE_URL);
     }
 }

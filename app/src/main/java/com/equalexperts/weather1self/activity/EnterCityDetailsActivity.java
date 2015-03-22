@@ -104,11 +104,11 @@ public class EnterCityDetailsActivity extends ActionBarActivity {
     }
 
     private void create1SelfStream() {
-        streamFor1Self = lib1SelfClient.getStream();
+        streamFor1Self = lib1SelfClient.createStream();
     }
 
     private static Lib1SelfClient get1SelfClient() {
         return ServiceGenerator.createService(Lib1SelfClient.class,
-                Lib1SelfClient.API_URL);
+                Lib1SelfClient.API_BASE_URL);
     }
 }
