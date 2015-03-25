@@ -36,6 +36,9 @@ public class Display1SelfChartActivity extends ActionBarActivity {
                 + "daily/barchart?readToken=" + readToken;
         Log.d("renderChart", "1Self chart URL : " + chartUrl);
 
+        String barChartURI = intent.getStringExtra(DisplayWeatherActivity.BAR_CHART_URI);
+        Log.d("renderBarChart", "bar chart from Weather1Self API : " + barChartURI);
+
         /* FIXME: Not working due to some bug with WebView, hence, delegating to browser activity */
         /*
         chartWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -48,7 +51,8 @@ public class Display1SelfChartActivity extends ActionBarActivity {
         });
         */
 
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(chartUrl));
+//        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(chartUrl));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(barChartURI));
         startActivity(browserIntent);
     }
 

@@ -14,12 +14,14 @@ import com.equalexperts.weather1self.R;
 import com.equalexperts.weather1self.model.Event;
 import com.equalexperts.weather1self.model.WeatherSource;
 import com.equalexperts.weather1self.response.lib1Self.Stream;
+import com.equalexperts.weather1self.response.lib1Self.TemperatureChart;
 import com.equalexperts.weather1self.response.lib1Self.WeatherEventAttributes;
 import com.equalexperts.weather1self.response.owm.WeatherDatum;
 import com.equalexperts.weather1self.response.owm.WeatherResponse;
 import com.equalexperts.weather1self.service.Lib1SelfClient;
 import com.equalexperts.weather1self.service.OpenWeatherMapClient;
 import com.equalexperts.weather1self.service.ServiceGenerator;
+import com.equalexperts.weather1self.service.Weather1SelfAPIClient;
 import com.equalexperts.weather1self.service.WeatherUndergroundClient;
 
 import org.joda.time.DateTime;
@@ -44,10 +46,14 @@ public class DisplayWeatherActivity extends ActionBarActivity {
     public static final String ACTION_TAGS = "com.equalexperts.weather1Self.ACTION_TAGS";
     public static final String AGGREGATION= "com.equalexperts.weather1Self.AGGREGATION";
     public static final String PROPERTY = "com.equalexperts.weather1Self.PROPERTY";
+    public static final String BAR_CHART_URI = "com.equalexperts.weather1Self.BAR_CHART_URI";
 
     private Lib1SelfClient lib1SelfClient;
     private OpenWeatherMapClient OWMWeatherClient;
     private WeatherUndergroundClient WUWeatherClient;
+    private Weather1SelfAPIClient weather1SelfAPIClient;
+    private TemperatureChart temperatureChart;
+    private String barChartURI;
     private Stream streamFor1Self;
     private String city;
     private String country;
@@ -65,7 +71,8 @@ public class DisplayWeatherActivity extends ActionBarActivity {
         streamFor1Self = new Stream(streamDetails[0], streamDetails[1], streamDetails[2]);
         weatherSource = (WeatherSource) intent.getSerializableExtra(EnterCityDetailsActivity.WEATHER_SOURCE);
 
-        new FetchAndLogTemperatureEventsTask().execute();
+//        new FetchAndLogTemperatureEventsTask().execute();
+        new Weather1SelfAPITask().execute();
     }
 
     @Override
@@ -91,6 +98,7 @@ public class DisplayWeatherActivity extends ActionBarActivity {
         intent.putExtra(ACTION_TAGS, getCommaSeparatedListString(WeatherEventAttributes.ACTION_TAGS));
         intent.putExtra(AGGREGATION, "mean");
         intent.putExtra(PROPERTY, WeatherEventAttributes.PROPERTY);
+        intent.putExtra(BAR_CHART_URI, barChartURI);
         startActivity(intent);
     }
 
@@ -100,6 +108,54 @@ public class DisplayWeatherActivity extends ActionBarActivity {
             commaSeparatedListString.append(string).append(",");
         }
         return commaSeparatedListString.substring(0, commaSeparatedListString.length() - 1);
+    }
+
+    private class Weather1SelfAPITask extends AsyncTask<Void, Void, Void> {
+
+        ProgressDialog progress = new ProgressDialog(DisplayWeatherActivity.this);
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            weather1SelfAPIClient = ServiceGenerator.createService(Weather1SelfAPIClient.class,
+                    Weather1SelfAPIClient.API_BASE_URL);
+            Log.d("maintask", "created Weather1Self API client");
+
+            switch (weatherSource) {
+                case OWM:
+                    Log.d("maintask", "created OWM weather client");
+                    temperatureChart = weather1SelfAPIClient.getWeatherBarChartURI(city, country, "openweathermap.org");
+                    break;
+                case WU:
+                    Log.d("maintask", "created WU weather client");
+                    temperatureChart = weather1SelfAPIClient.getWeatherBarChartURI(city, country, "wunderground.com");
+                    break;
+                default:
+                    Log.d("maintask", "created default weather client");
+                    temperatureChart = weather1SelfAPIClient.getWeatherBarChartURI(city, country, "wunderground.com");
+            }
+            barChartURI = temperatureChart.getChartUri();
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progress.setTitle("Loading chart");
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.setMessage("Please wait...");
+            progress.show();
+            Log.d("maintask", "Started progress bar");
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progress.dismiss();
+            Log.d("maintask", "Stopped progress bar");
+
+            cityAndCountryTextView.setText(getCityAndCountryParam());
+        }
     }
 
     private class FetchAndLogTemperatureEventsTask extends AsyncTask<Void, Void, Void> {
